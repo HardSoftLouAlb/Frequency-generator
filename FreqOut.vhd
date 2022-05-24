@@ -22,16 +22,16 @@ entity FreqOut is
 	(
 		MIN_COUNT : natural :=1000;
 		MAX_COUNT : natural :=1000000;
-		STEP      : natural :=3902
+		STEP      : natural :=3902       --Value of the counter step
 		
 	);
 	
-	port 
-	(	clk				: in std_logic;
+	port 					
+	(	clk			: in std_logic;
 		reset_n			: in std_logic;
 		reg0value		: in std_logic_vector(7 downto 0);
 		reg1enable		: in std_logic;
-		gpio0				: out std_logic:='0';
+		gpio0			: out std_logic:='0';
 		counter			: out natural
 	);
 
@@ -39,7 +39,7 @@ end entity;
 
 architecture rtl of FreqOut is 
 
-	signal gpiobuff	:	std_logic := '0';
+	signal gpiobuff	: std_logic := '0';
 	signal cnt     	: natural :=0;
 	
 begin 
