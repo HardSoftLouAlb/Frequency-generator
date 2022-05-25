@@ -15,37 +15,35 @@ library ieee;
 use ieee.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-
+ 
 entity FreqOut is 
 
 	generic
 	(
 		MIN_COUNT : natural :=1000;
 		MAX_COUNT : natural :=1000000;
-		STEP      : natural :=3902       --Value of the counter step
+		STEP      : natural :=3902
 		
 	);
 	
-	port 					
-	(	clk			: in std_logic;
+	port 
+	(	clk				: in std_logic;
 		reset_n			: in std_logic;
 		reg0value		: in std_logic_vector(7 downto 0);
 		reg1enable		: in std_logic;
-		gpio0			: out std_logic:='0';
-		counter			: out natural
+		gpio0				: out std_logic
 	);
 
 end entity;
 
 architecture rtl of FreqOut is 
 
-	signal gpiobuff	: std_logic := '0';
+	signal gpiobuff	:	std_logic := '0';
 	signal cnt     	: natural :=0;
 	
 begin 
 
-	gpio0 <= gpiobuff;
-	counter<=cnt;
+	gpio0 <= gpiobuff; 
 	
 	process(clk)
 		variable max: natural :=0;
