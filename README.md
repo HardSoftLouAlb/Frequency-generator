@@ -8,7 +8,7 @@ STEP= 78µs/20ns=3900
 MINCOUNT=20µs/20ns=1000
 MAXCOUNT= 20ms/20ns=1000000
 
-The output pin will only stay high for one cycle of the 50MHz clock every period.
+The output pin will only stay high for one cycle of the 50MHz clock every period. This function is managed by the FreqOut.VHDL file, while the FreqOut_TB.VHDL is used as a testbench.
 
-The input registers (the one for the input value and the one for the enable pin that must be set to generate the frequency) are controlled by the software driver in the processor that, after taking the address of the registers, writes the desired value for the enable and for the period (still using a number from 0 to 255 as explained before) in the correct place.
+The input registers (the one for the input value and the one for the enable pin that must be set to generate the frequency) are controlled by the software driver in the processor that, after taking the address of the registers, writes the desired value for the enable and for the period (still using a number from 0 to 255 as explained before) in the correct place. Those functions are managed by the main.c file.
 
