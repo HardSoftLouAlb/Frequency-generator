@@ -84,3 +84,4 @@ end rtl;
 -- Quartus Prime VHDL Template
 -- Binary Counter
 
+
