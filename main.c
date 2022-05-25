@@ -31,7 +31,7 @@
 
 
 #include <stdlib.h>
-
+/*
 int main(int argc, char *argv[]) {
    int i;
     for (i = 0; i < argc; i++)
@@ -39,6 +39,8 @@ int main(int argc, char *argv[]) {
 
    int x = atoi(argv[1]);
    //pointer to the different address spaces
+*/
+int main() {
 
    void *virtual_base;
    int fd;
@@ -74,7 +76,7 @@ int main(int argc, char *argv[]) {
 
    h2p_lw_reg1_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PIO_REG1_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
    h2p_lw_reg2_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PIO_REG2_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
- 
+ /*
    for(i=0;i<1000;i++) {
         *(uint32_t *)h2p_lw_reg1_addr = x;
         printf( "h2p_lw_reg0_out_addr %d\n", *h2p_lw_reg1_addr);
@@ -82,18 +84,18 @@ int main(int argc, char *argv[]) {
         printf( "h2p_lw_reg1_out_addr %d\n", * h2p_lw_reg2_addr);
    }
 
-/*
+*/
       int i;
       for( i=0;i<=255;i++){
 
-      *(uint32_t *)h2p_lw_reg1_addr = i;
+      *(uint32_t *)h2p_lw_reg1_addr = 255;
       printf( "h2p_lw_reg0_out_addr %d\n", *h2p_lw_reg1_addr);
       *(uint32_t *)h2p_lw_reg2_addr = 1;
       printf( "h2p_lw_reg1_out_addr %d\n", * h2p_lw_reg2_addr);
    
       sleep(1);
    }
-   */
+
    
 
 
