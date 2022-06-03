@@ -4,8 +4,8 @@ The objective of the project is to create a driver for a frequency generator.
 The FPGA receives as an input a value from 0 to 255 as a std_logic_vector and must generate a frequency between 50Hz and 50kHz; the value 0 corresponds to the minimum period of 20µs (f=50kHz) and 255 corresponds to the maximum period of 20 ms (f=50Hz). Every value n corresponds to a period of 20µs + n*TIMESTEP where the TIMESTEP is equal to (20ms-20µs)/255=78µs.
 
 Seeing that we have an internal clock of 50Mhz (period=20ns) we can convert all the time values in pure clock counts so they become:
-STEP= 78µs/20ns=3900
-MINCOUNT=20µs/20ns=1000
+STEP= 78µs/20ns=3900 ;
+MINCOUNT=20µs/20ns=1000 ;
 MAXCOUNT= 20ms/20ns=1000000
 
 The output pin will only stay high for one cycle of the 50MHz clock every period. This function is managed by the FreqOut.VHDL file, while the FreqOut_TB.VHDL is used as a testbench.
