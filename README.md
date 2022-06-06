@@ -9,7 +9,7 @@ Made by Louis Aromatario & Alberto Badilini
 
 The objective of the project is to create an hardware driver on a FPGA and a application program for a frequency generator.
 
-It was developed on the DE0 development kit (SoC FPGA + ARM Hard Processor System) with the  Intel Altera SoC Qsys platform designer.
+It was developed on the DE0 development kit (SoC FPGA + ARM Hard Processor System + USB ad alimentation cables) with the Intel Altera SoC Qsys platform designer.
 
 The goal is to be able to output a wanted frequency on one of the I/O port of the FPGA. The user will enter a 8-bit value (in decimal) thanks to the user interface (application program)
 
