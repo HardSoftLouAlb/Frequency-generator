@@ -27,8 +27,7 @@ architecture TB of FreqOut_TB is
 		reset_n			: in std_logic;
 		reg0value		: in std_logic_vector(7 downto 0);
 		reg1enable		: in std_logic;
-		gpio0				: out std_logic;
-		counter			: out natural
+		gpio0				: out std_logic
 	);	
 	end component;
 
@@ -37,7 +36,6 @@ architecture TB of FreqOut_TB is
 		signal reg0value		: std_logic_vector(7 downto 0);
 		signal reg1enable		: std_logic;
 		signal gpio0			: std_logic;
-		signal counter			: natural;
 		
 begin  
 		
@@ -48,8 +46,7 @@ begin
 			reset_n 		=>reset_n,
 			reg0value	=>reg0value,
 			reg1enable	=>reg1enable,
-			gpio0			=>gpio0,
-			counter		=>counter
+			gpio0			=>gpio0
 			);
 			
 			
