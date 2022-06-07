@@ -291,18 +291,6 @@ altera_edge_detector pulse_debug_reset (
 		.reg1enable	(reg2_to_add[0]),
 		.gpio0 (GPIO_0[0])	
   );
-
- 
-  //my add
-  /*
-  SimpleAdd MyAdd(
-	.reg1		(reg1_to_add),
-	.reg2		(reg2_to_add),
-	.reg3		(add_to_reg3)
-	
-  );
-
-  */
   
 	
   
