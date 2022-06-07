@@ -26,7 +26,7 @@ entity FreqOut is
 		
 	);
 	
-	port 
+	port 						-- Declares the different ports of the component
 	(	clk			: in std_logic;
 		reset_n			: in std_logic;
 		reg0value		: in std_logic_vector(7 downto 0);
@@ -38,12 +38,12 @@ end entity;
 
 architecture rtl of FreqOut is 
 
-	signal gpiobuff	:	std_logic := '0';
+	signal gpiobuff	: std_logic := '0';	-- These 2 signals are the values manipulated during the process, gpiobuff is used as a buffer before outputting the frequency
 	signal cnt     	: natural :=0;
 	
 begin 
 
-	gpio0 <= gpiobuff; 
+	gpio0 <= gpiobuff; 			--gpio is constantly following the value of gpiobuff
 	
 	process(clk)
 		variable max: natural :=0;
@@ -53,8 +53,8 @@ begin
 		
 		if reset_n='0' then
 			cnt<=0;
-			max:=MIN_COUNT+to_integer(unsigned(reg0value))*3902;
-		
+			max:=MIN_COUNT+to_integer(unsigned(reg0value))*3902; -- this formula translate the 8-bit value of reg0value to a certain counter value corresponding
+										-- to a certain frequency between 50Hz and 50 kHz
 		elsif reg1enable = '1' then
 		
 			if cnt = (0) then
@@ -64,8 +64,8 @@ begin
 			cnt<=cnt+1;
 			
 			if cnt = (max) then
-				gpiobuff<='1'; 
-				
+				gpiobuff<='1'; 				-- when the counter reaches the max value (desired value to obtain the good frquency), a pulse is generated
+									-- and will last for the period of the clock (gpiobuff is firt set to 0 at each rising edge of the clock).
 				cnt<=0;
 			end if;
 		else
