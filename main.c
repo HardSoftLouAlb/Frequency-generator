@@ -89,9 +89,9 @@ int main() {
       for( i=0;i<=255;i++){
 
       *(uint32_t *)h2p_lw_reg1_addr = 255;
-      printf( "h2p_lw_reg0_out_addr %d\n", *h2p_lw_reg1_addr);
+      printf( "h2p_lw_reg1_out_addr %d\n", *h2p_lw_reg1_addr);
       *(uint32_t *)h2p_lw_reg2_addr = 1;
-      printf( "h2p_lw_reg1_out_addr %d\n", * h2p_lw_reg2_addr);
+      printf( "h2p_lw_reg2_out_addr %d\n", * h2p_lw_reg2_addr);
    
       sleep(1);
    }
