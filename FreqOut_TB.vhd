@@ -20,18 +20,18 @@ end entity;
 
 architecture TB of FreqOut_TB is 
 
-	constant PERIOD : time := 20 ns;
+	constant PERIOD : time := 20 ns;			--Period of a 50MHz clock
 	component FreqOut is
-	port (	
-		clk				: in std_logic;
+	port (							--Declaration of the ports of the component
+		clk			: in std_logic;
 		reset_n			: in std_logic;
 		reg0value		: in std_logic_vector(7 downto 0);
 		reg1enable		: in std_logic;
-		gpio0				: out std_logic
+		gpio0			: out std_logic
 	);	
 	end component;
 
-		signal clk				: std_logic;
+		signal clk			: std_logic;		--Declaration of the signals that we'll write/read during the test bench
 		signal reset_n			: std_logic;
 		signal reg0value		: std_logic_vector(7 downto 0);
 		signal reg1enable		: std_logic;
@@ -39,7 +39,7 @@ architecture TB of FreqOut_TB is
 		
 begin  
 		
-		inst0: FreqOut
+		inst0: FreqOut						--The signals are being assigned to the ports of the component
 			port map (
 			
 			clk			=>clk,
@@ -57,36 +57,36 @@ begin
           CLK <= '0';
           wait for PERIOD/2;
      end process;
-	    
-		P_resetn :process
-			begin
- 			reset_n <= '0';
-       	wait for PERIOD/2;
-       	reset_n <= '1';
-				wait;
-		end process;
+	  
+--		P_resetn :process          if we wanted to see the effect of the enable signal
+--			begin
+-- 			reset_n <= '0';
+--       	wait for PERIOD/2;
+--      reset_n <= '1';
+--				wait;
+--		end process;
 	  
      stimulus : process
      begin
-		reg0value <= "00000000";
+		reg0value <= "00000000";	--reg0value is set to the minimal period (maximal frequency)
+		reg1enable <= '1';		--we ensure that enable is activated
+		wait until gpio0 = '1';		--we wait for the component to output 2 pulses 
+		wait until gpio0='0';
+		wait until gpio0 = '1';
+		wait until gpio0='0';
+		reg0value <= "00000001";	--reg0value is set to the following value (second highest frequency)
 		reg1enable <= '1';
 		wait until gpio0 = '1';
 		wait until gpio0='0';
 		wait until gpio0 = '1';
 		wait until gpio0='0';
-		reg0value <= "00000001";
+		reg0value <= "11111111";	--reg0value is set the maximal period (minimal frequency)
 		reg1enable <= '1';
 		wait until gpio0 = '1';
 		wait until gpio0='0';
 		wait until gpio0 = '1';
 		wait until gpio0='0';
-		reg0value <= "11111111";
-		reg1enable <= '1';
-		wait until gpio0 = '1';
-		wait until gpio0='0';
-		wait until gpio0 = '1';
-		wait until gpio0='0';
-		--wait;
+		--wait;				--The process remains in stand-by
      end process;
 end TB ;
 
