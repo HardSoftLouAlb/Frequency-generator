@@ -2,7 +2,7 @@
 -- Title           : frequency generator
 -----------------------------------------------------------------------------
 -- Author          : Louis Aromatario & Alberto Badilini
--- Date Created    : 01-07-2016
+-- Date Created    : 31-06-2022
 -----------------------------------------------------------------------------
 -- Description     : Description
 --							
@@ -27,11 +27,11 @@ entity FreqOut is
 	);
 	
 	port 
-	(	clk				: in std_logic;
+	(	clk			: in std_logic;
 		reset_n			: in std_logic;
 		reg0value		: in std_logic_vector(7 downto 0);
 		reg1enable		: in std_logic;
-		gpio0				: out std_logic
+		gpio0			: out std_logic
 	);
 
 end entity;
