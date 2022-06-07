@@ -31,15 +31,9 @@
 
 
 #include <stdlib.h>
-/*
-int main(int argc, char *argv[]) {
-   int i;
-    for (i = 0; i < argc; i++)
-        printf("argv[%d] = %s\n", i, argv[i]);
 
-   int x = atoi(argv[1]);
-   //pointer to the different address spaces
-*/
+
+
 int main(int argc, char *argv[]) {
 
    void *virtual_base;
@@ -80,23 +74,13 @@ int main(int argc, char *argv[]) {
    int i;
     for (i = 0; i < argc; i++){
         *(uint32_t *)h2p_lw_reg1_addr = argv[i];
+        printf( "h2p_lw_reg1_out_addr %d\n", *h2p_lw_reg1_addr);
         *(uint32_t *)h2p_lw_reg2_addr = 1;
         printf( "h2p_lw_reg2_out_addr %d\n", * h2p_lw_reg2_addr);
-        sleep(1)
+        sleep(2)
    } 
 
-/*
-      int i;
-      for( i=0;i<=255;i++){
 
-      *(uint32_t *)h2p_lw_reg1_addr = 255;
-      printf( "h2p_lw_reg1_out_addr %d\n", *h2p_lw_reg1_addr);
-      *(uint32_t *)h2p_lw_reg2_addr = 1;
-      printf( "h2p_lw_reg2_out_addr %d\n", * h2p_lw_reg2_addr);
-   
-      sleep(1);
-   }
-*/
    
 
 
