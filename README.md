@@ -52,17 +52,17 @@ This file will manage the value put in the registers that the FPGA sees as input
 
 We can therefore make a loop that will store in the reg1_to_add register one of the value of argv, waiting 2 seconds before going to the next one.
 
-### 6) Uploading the files to the processor and FPGA
+### 6) Programming the processor and the FPGA
 
 To program the FPGA, connect the board to the PC using the USB blaster (connected on the same side as the power). Go in tools>programmer and click on "harware setup", you'll find the DE-SOC [USB-1], select it and close. Click on "add file" and find the "HPS_CONTROL_FPGA_LED.sof" in the directory of the project. Add it and click on "Start". Your FPGA is now programmed.
 
-Connect now the USB blaster to the other side and connect the board the ethernet. Open your peripherals manager to find the number of the port the board is connected to. Open Putty, select "serial" mode, enter the serial line that you found, put 115200 as baudrate and click open. The linux terminal opens and you can enter "root" as login and type ifcongig to see the IP address of the board.
+Connect now the USB blaster to the other side and connect the board to the ethernet. Open your peripherals manager to find the number of the port the board is connected to. Open Putty, select "serial" mode, enter the serial line that you found, put 115200 as baudrate and click open. The linux terminal opens and you can enter "root" as login and type ifcongig to see the IP address of the board.
 
 Start the SoC EDS Shell and access the directory of your project. You'll find the HPS-FREQOUT file that was generated from the main.c and converted into a file that can be executed in the linux OS of the processor. If you modified the main.c, juste type "makefile" to call the file that will do the conversion.
 
-Finally, to run the genrated file, type "scp HPS_FREQOUTroot@255.255.255.255:/home/root" and replace the IP address with the retrieved one.
+Finally, to run the generated file, type "scp HPS_FREQOUTroot@255.255.255.255:/home/root" and replace the IP address with the retrieved one.
 
-All that's left to do is type "./HPS_FREQ" in putty, followed by the input values (in decimal) that you want to see in frequency on the GPIO_0[0].
+All that's left to do is type "./HPS_FREQ" in the putty terminal, followed by the input values (in decimal) that you want to see in frequency on the GPIO_0[0].
 
 
 
