@@ -45,7 +45,7 @@ Before going further, we need to describe the connection between the FPGA logic 
 
 ### 4) Testbench of the driver: FreqOUT_TB.vhd
 
-The test bench will allow us to check if the logic part is doing what we're expecting. To achieve this we call an instance of the predefined FreqOut component and assign signals to its ports. By controlling ourself the signals, we can test if it behaves correctly. Additional comments can be found in the file.
+The test bench will allow us to check if the logic part is doing what we're expecting. it's the file that will dictate the simulation done by ModelSim. To achieve this we call an instance of the predefined FreqOut component and assign signals to its ports. By controlling ourself the signals, we can test if it behaves correctly. Additional comments can be found in the file.
 
 ### 5) Software development: main.c
 
