@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
    h2p_lw_reg2_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PIO_REG2_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 
    int i;
-    for (i = 0; i < argc; i++){
+    for (i = 1; i < argc-1; i++){
         *(uint32_t *)h2p_lw_reg1_addr = argv[i];
         printf( "h2p_lw_reg1_out_addr %d\n", *h2p_lw_reg1_addr);
         *(uint32_t *)h2p_lw_reg2_addr = 1;
