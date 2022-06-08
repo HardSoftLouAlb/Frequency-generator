@@ -7,12 +7,11 @@ Made by Louis Aromatario & Alberto Badilini
 
 ## Reading before realisation
 
-The objective of the project is to create an hardware driver on a FPGA and a application program for a frequency generator.
+The objective of the project is to create an hardware driver on a FPGA and a application program for a frequency generator. It was developed on the DE0-Nano-SoC kit (SoC FPGA + ARM Hard Processor System + USB and alimentation cables) with the Intel Altera SoC Qsys (synthesis & simulation of FPGA and platform designer). You'll also need to install the Putty programm on your PC.
 
-It was developed on the DE0-Nano-SoC kit (SoC FPGA + ARM Hard Processor System + USB and alimentation cables) with the Intel Altera SoC Qsys (synthesis & simulation of FPGA and platform designer). You'll also need to install the Putty programm on your PC.
 The goal is to be able to output a wanted frequency on one of the I/O port of the FPGA. The user will enter a 8-bit value (in decimal) thanks to the user interface (application program)
 
-The FPGA will thus receive as an input a value from 0 to 255 as a std_logic_vector and sore it in a register. It will generate a frequency between 50Hz and 50kHz; the value 0 corresponds to the minimum period of 20µs (f=50kHz) and 255 corresponds to the maximum period of 20 ms (f=50Hz). Every value n corresponds to a period of 20µs + n*TIMESTEP where the TIMESTEP is equal to (20ms-20µs)/255=78µs.
+The FPGA will thus receive as an input a value from 0 to 255 as a std_logic_vector. It will generate a frequency between 50Hz and 50kHz; the value 0 corresponds to the minimum period of 20µs (f=50kHz) and 255 corresponds to the maximum period of 20 ms (f=50Hz). Every value n corresponds to a period of 20µs + n*TIMESTEP where the TIMESTEP is equal to (20ms-20µs)/255=78µs.
 
 Seeing that we have an internal clock of 50Mhz (period=20ns) we can convert all the time values in pure clock counts so they become:
 STEP= 78µs/20ns=3900 ;
@@ -21,13 +20,13 @@ MAXCOUNT= 20ms/20ns=1000000
 
 The output pin will only stay high for one cycle of the 50MHz clock every period. This function is managed by the FreqOut.VHDL file, while the FreqOut_TB.VHDL is used as a testbench.
 
-The input registers (the one for the input value and the one for the enable pin that must be set to generate the frequency) are controlled by the software driver in the processor that, after taking the address of the registers, writes the desired value for the enable and for the period (still using a number from 0 to 255 as explained before) in the correct place. Those functions are managed by the main.c file.
+The input registers (the one for the input value and the one for the enable pin that must be set to generate the frequency) are controlled by the software driver in the processor that, after taking the address of the registers, writes the desired value for the period (still using a number from 0 to 255 as explained before) in the correct place. Those functions are managed by the main.c file.
 
 ## Step-by-step tutorial
 
 ### 1) Platform Designer 
 
-After opening the project archive in Quartus, go in the "tools" tab and click on "platform designer". This tool shows the main components of the board and their connections (HPS processor, Jtag/Uart, buttons, led and switches. Our process will need 2 registers, for the enable and input value. TO create these 2 registers, we first need to add external connection to the processor that will connect it to the Avalon bus. 
+After opening the project archive in Quartus, go in the "tools" tab and click on "platform designer". This tool shows the main components of the board and their connections (HPS processor, Jtag/Uart, buttons, led and switches). Our process will need 2 registers, for the enable and input value. To create these 2 registers, we first need to add external connections to the processor that will connect it to the Avalon bus. 
 
 Click on the "add" button and create 2 external connections, "pio_reg1" and "pio_reg2" both being a 8-bit vector.
 
@@ -49,7 +48,7 @@ The test bench will allow us to check if the logic part is doing what we're expe
 
 ### 5) Software development: main.c
 
-This file will manage the value put in the registers that the FPGA sees as input. The values stored in the 2 registers reg1_to_add and reg2_to_add are manipulated with pointers named "uint8_t *h2p_lw_reg1_addr"* and "uint8_t *h2p_lw_reg2_addr"*. The exact adress of the registers is assigned to the pointers at lines 77 and 78 with the help of headers. When calling the functions, the user must enter the different 8-bit values (in decimal) that he wants to see translated in frequency. The number of values will be automatically stored as a chain of characters in the vector argv, and argc will contain the length of argv. Note that argv[0] is always the address of the variable and argv[arc-1] is always NULL.
+This file will manage the value put in the registers that the FPGA sees as input. The values stored in the 2 registers reg1_to_add and reg2_to_add are manipulated with pointers named "uint8_t *h2p_lw_reg1_addr"* and "uint8_t *h2p_lw_reg2_addr"*. The exact adress of the registers is assigned to the pointers at lines 77 and 78 with the help of headers. When calling the functions, the user must enter the different 8-bit values (in decimal) that he wants to see translated in frequency. The number of values will be automatically stored as a chain of characters in the vector argv, and argc will contain the length of argv. Note that argv[0] is always the address of the variable and argv[arc-1] is always NULL, the iterator is therefore stating at 1 and ending at argc-2.
 
 We can therefore make a loop that will store in the reg1_to_add register one of the value of argv, waiting 2 seconds before going to the next one.
 
